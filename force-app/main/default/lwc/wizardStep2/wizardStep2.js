@@ -1,10 +1,13 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api } from "lwc";
 
 export default class WizardStep2 extends LightningElement {
-    @api contactId;
-    
-    handleSuccess(event) {
-        const conId = event.detail.id;
-        this.dispatchEvent(new CustomEvent('next', {detail: conId}));
-    }
+  @api contactId;
+
+  clickPrev(event) {
+    this.dispatchEvent(new CustomEvent("prev", { detail: this.contactId }));
+  }
+  handleSuccess(event) {
+    const conId = event.detail.id;
+    this.dispatchEvent(new CustomEvent("next", { detail: conId }));
+  }
 }

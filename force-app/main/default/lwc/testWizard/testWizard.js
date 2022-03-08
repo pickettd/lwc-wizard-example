@@ -39,4 +39,20 @@ export default class TestWizard extends NavigationMixin(LightningElement) {
       this.current = this.steps[this.currentIndex].value;
     }
   }
+  handlePrev(event) {
+    this.contactId = event.detail;
+    if (this.currentIndex - 1 < 0) {
+      console.log(this.contactId);
+      //   this[NavigationMixin.Navigate]({
+      //     type: "standard__recordPage",
+      //     attributes: {
+      //       recordId: this.contactId,
+      //       actionName: "view",
+      //     },
+      //   });
+    } else {
+      this.currentIndex--;
+      this.current = this.steps[this.currentIndex].value;
+    }
+  }
 }
