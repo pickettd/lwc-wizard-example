@@ -1,5 +1,13 @@
 {
-  "orgName": "paulbattisson company",
-  "edition": "Developer",
-  "features": []
+  "orgName": "Purple Maia Foundation",
+  "edition": "Enterprise",
+  "features": ["EnableSetPasswordInApi"],
+  "settings": {
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "mobileSettings": {
+      "enableS1EncryptedStoragePref2": false
+    }
+  }
 }
