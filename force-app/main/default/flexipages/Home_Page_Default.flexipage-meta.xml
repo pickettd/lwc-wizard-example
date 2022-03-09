@@ -37,6 +37,9 @@
         <componentInstances>
             <componentName>home:assistant</componentName>
         </componentInstances>
+        <componentInstances>
+            <componentName>modalWizard</componentName>
+        </componentInstances>
         <mode>Replace</mode>
         <name>sidebar</name>
         <type>Region</type>
