@@ -1,0 +1,34 @@
+<template>
+  <div class="slds-progress slds-progress_vertical">
+    <ol class="slds-progress__list">
+      <template for:each={steps} for:item="step">
+        <div key={step.value}>
+          <li class={getClass}>
+            <div class="slds-progress__marker"></div>
+            <div class="slds-progress__item_content slds-grid slds-grid_align-spread">{step.label}</div>
+          </li>
+        </div>
+      </template>
+      <!-- <li class="slds-progress__item slds-is-completed">
+              <span
+                  class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon slds-progress__marker_icon-success"
+                  title="Complete">
+                  <svg class="slds-icon slds-icon_xx-small" aria-hidden="true">
+                      <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#success"></use>
+                  </svg>
+                  <span class="slds-assistive-text">Complete</span>
+              </span>
+              <div class="slds-progress__item_content slds-grid slds-grid_align-spread">Step 1</div>
+          </li>
+          <li class="slds-progress__item slds-is-active">
+              <div class="slds-progress__marker">
+                  <span class="slds-assistive-text">Active</span>
+              </div>
+              <div class="slds-progress__item_content slds-grid slds-grid_align-spread">Step 2</div>
+          </li> -->
+    </ol>
+    <div aria-valuemin="0" aria-valuemax="100" aria-valuenow={progress} role="progressbar">
+      <span class="slds-assistive-text">Progress: {progress}%</span>
+    </div>
+  </div>
+</template>

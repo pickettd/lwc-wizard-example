@@ -1,0 +1,120 @@
+<template>
+  <!-- lightning button for open modal window -->
+  <lightning-button variant="brand" label="Request Agreement" title="Request Agreement" onclick={openModal}
+    class="slds-var-m-left_x-small">
+  </lightning-button>
+  <!--Use template if:true to display/hide popup based on isModalOpen value-->
+  <template if:true={isModalOpen}>
+    <!-- Modal/Popup Box LWC starts here -->
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+      aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+      <div class="slds-modal__container">
+        <!-- Modal/Popup Box LWC header here -->
+        <header class="slds-modal__header">
+          <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+            Request Agreement
+          </h2>
+        </header>
+        <!-- Modal/Popup Box LWC body starts here -->
+        <div class="slds-modal__content slds-var-p-around_medium" id="modal-content-id-1">
+          <!-- <c-horizontal-progress-bar steps={steps} type="indicator" current-step={current} ></c-horizontal-progress-bar> -->
+          <c-horizontal-progress-bar steps={steps} type="path" current-step={current}>
+          </c-horizontal-progress-bar>
+          <div class="slds-grid">
+            <div class="slds-col slds-size_1-of-3 slds-border_right">
+              <c-vertical-progress-bar steps={steps} current-step={current}></c-vertical-progress-bar>
+            </div>
+            <div class="slds-col slds-size_2-of-3">
+              <lightning-card>
+                <div class="slds-var-p-around_small">
+                  <template if:true={step1}>
+                    <lightning-radio-group name="radioGroup" label="What type are you creating?"
+                      options={setupTypeOptions} value={selectedSetupTypeValue} type="radio">
+                    </lightning-radio-group>
+
+                  </template>
+                  <template if:true={step2}>
+                    <lightning-radio-group name="radioGroup" label="Select an thing" options={agreementTypeOptions}
+                      value={selectedAgreementTypeValue} type="radio">
+                    </lightning-radio-group>
+                  </template>
+                  <template if:true={step3}>
+                    <!-- Property Search Here (using property id {propertyId} for now)
+                                      <lightning-record-form object-api-name="Property__c" record-id={propertyId}
+                                          mode="view" layout-type="Full">
+                                      </lightning-record-form> -->
+                    <template if:false={hasExistingContact}>
+                      <lightning-record-edit-form object-api-name="Contact" onsuccess={handleSuccess}>
+                        <lightning-messages></lightning-messages>
+                        <lightning-input-field field-name="FirstName"></lightning-input-field>
+                        <lightning-input-field field-name="LastName"></lightning-input-field>
+                        <lightning-input-field field-name="Birthdate"></lightning-input-field>
+                        <lightning-button class="slds-m-top_small" type="submit" label="Next">
+                        </lightning-button>
+                      </lightning-record-edit-form>
+                    </template>
+                    <template if:true={hasExistingContact}>
+                      <lightning-record-edit-form object-api-name="Contact" record-id={contactId}
+                        onsuccess={handleSuccess}>
+                        <lightning-messages></lightning-messages>
+                        <lightning-input-field field-name="FirstName"></lightning-input-field>
+                        <lightning-input-field field-name="LastName"></lightning-input-field>
+                        <lightning-input-field field-name="Birthdate"></lightning-input-field>
+                        <lightning-button class="slds-m-top_small" type="submit" label="Next">
+                        </lightning-button>
+                      </lightning-record-edit-form>
+                    </template>
+                  </template>
+                  <template if:true={step4}>
+                    <lightning-record-edit-form object-api-name="Contact" record-id={contactId}
+                      onsuccess={handleSuccess}>
+                      <lightning-messages></lightning-messages>
+                      <lightning-input-field field-name="MobilePhone"></lightning-input-field>
+                      <lightning-input-field field-name="Email"></lightning-input-field>
+                      <lightning-button class="slds-m-top_small" onclick={handlePrev} label="Previous">
+                      </lightning-button>
+                      <lightning-button class="slds-m-top_small" type="submit" label="Next">
+                      </lightning-button>
+                    </lightning-record-edit-form>
+                    <!-- Contact Search Here (property owner contact id is {propertyOwnerId} though)
+                                      <lightning-record-form object-api-name="Contact" record-id={propertyOwnerId}
+                                          mode="view" layout-type="Full">
+                                      </lightning-record-form> -->
+                    <!-- <c-request-agreement-wizard-step1 onnext={handleNext}>/
+                                      </c-request-agreement-wizard-step1> -->
+                  </template>
+                  <template if:true={step5}>
+                    Step5 Details here
+                  </template>
+                  <template if:true={step6}>
+                    Step here
+                  </template>
+                  <template if:true={step7}>
+                    Step here
+                  </template>
+                </div>
+              </lightning-card>
+            </div>
+          </div>
+        </div>
+        <!-- Modal/Popup Box LWC footer starts here -->
+        <footer class="slds-modal__footer slds-clearfix">
+          <template if:true={step1}>
+            <button class="slds-button slds-button_neutral slds-float_left" onclick={closeModal} title="Cancel">
+              <label>Cancel</label>
+            </button>
+          </template>
+          <template if:true={notStep1}>
+            <button class="slds-button slds-button_neutral slds-float_left" onclick={handlePrev} title="Previous">
+              <label>Previous</label>
+            </button>
+          </template>
+          <button class="slds-button slds-button_brand  slds-float_right" onclick={handleNext} title="Next">
+            <label>Next</label>
+          </button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>
